@@ -26,6 +26,7 @@ public class Cancer {
     private int averageRecoveryTime;
     private String symptoms;
 
+    // Array Setup
     public static Cancer[] init() {
         final Cancer[] cancersArray = {
             new Cancer("Breast", 276480, 0.142, 4, "Lump in the breast, change in breast size or shape, nipple discharge, skin changes"),

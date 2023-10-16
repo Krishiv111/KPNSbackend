@@ -13,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 public class Cancer {
+    // ID
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

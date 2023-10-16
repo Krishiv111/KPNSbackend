@@ -21,6 +21,8 @@ public class Cancer {
     @Column(unique = true)
     private String cancerType;
 
+    // Attributes
+    
     private int numOfPeopleAffected;
     private double deathRate;
     private int averageRecoveryTime;

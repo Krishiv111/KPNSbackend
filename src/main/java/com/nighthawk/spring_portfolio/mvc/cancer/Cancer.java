@@ -49,6 +49,7 @@ public class Cancer {
         };
         return cancersArray;
     }
+    
 
 
     public Cancer(String cancerType, int numOfPeopleAffected, double deathRate, int averageRecoveryTime, String symptoms) {

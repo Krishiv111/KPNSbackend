@@ -29,6 +29,16 @@ public class CancerApiController {
         return new ResponseEntity<>(cancers, HttpStatus.OK);
     }
 
+    @GetMapping("/byCancerType/{type}")
+    public ResponseEntity<List<Cancer>> getCancersByCancerType(@PathVariable String type) {
+    List<Cancer> cancers = repository.findByCancerTypeIgnoreCase(type);
+    if (cancers.isEmpty()) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<>(cancers, HttpStatus.OK);
+    }
+
+
     @GetMapping("/byNumOfPeopleAffected/{num}")
     public ResponseEntity<List<Cancer>> getCancersByNumOfPeopleAffected(@PathVariable int num) {
         List<Cancer> cancers = repository.findByNumOfPeopleAffected(num);

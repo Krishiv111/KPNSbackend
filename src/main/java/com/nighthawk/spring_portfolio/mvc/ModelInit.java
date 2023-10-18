@@ -6,11 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.nighthawk.spring_portfolio.mvc.jokes.Jokes;
 import com.nighthawk.spring_portfolio.mvc.jokes.JokesJpaRepository;
-import com.nighthawk.spring_portfolio.mvc.note.Note;
 import com.nighthawk.spring_portfolio.mvc.note.NoteJpaRepository;
-import com.nighthawk.spring_portfolio.mvc.person.Person;
 import com.nighthawk.spring_portfolio.mvc.person.PersonDetailsService;
 import com.nighthawk.spring_portfolio.mvc.cancer.Cancer;
 import com.nighthawk.spring_portfolio.mvc.cancer.CancerJpaRepository;

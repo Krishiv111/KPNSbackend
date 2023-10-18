@@ -13,5 +13,8 @@ public interface CancerJpaRepository extends JpaRepository<Cancer, Long> {
 
     List<Cancer> findBySymptoms(String symptoms);
 
+    // Custom query method to find by cancer type ignoring case
+    List<Cancer> findByCancerTypeIgnoreCase(String cancerType);
+
     // You can add more custom query methods as needed for your application.
 }

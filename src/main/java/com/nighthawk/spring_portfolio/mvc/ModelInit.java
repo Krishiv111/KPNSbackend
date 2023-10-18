@@ -12,44 +12,44 @@ import com.nighthawk.spring_portfolio.mvc.note.Note;
 import com.nighthawk.spring_portfolio.mvc.note.NoteJpaRepository;
 import com.nighthawk.spring_portfolio.mvc.person.Person;
 import com.nighthawk.spring_portfolio.mvc.person.PersonDetailsService;
+import com.nighthawk.spring_portfolio.mvc.cancer.Cancer;
+import com.nighthawk.spring_portfolio.mvc.cancer.CancerJpaRepository;
 
 import java.util.List;
 
 @Component
-@Configuration // Scans Application for ModelInit Bean, this detects CommandLineRunner
-public class ModelInit {  
-    @Autowired JokesJpaRepository jokesRepo;
-    @Autowired NoteJpaRepository noteRepo;
-    @Autowired PersonDetailsService personService;
+@Configuration
+public class ModelInit {
+    @Autowired
+    JokesJpaRepository jokesRepo;
+    @Autowired
+    NoteJpaRepository noteRepo;
+    @Autowired
+    PersonDetailsService personService;
+    @Autowired
+    CancerJpaRepository cancerRepo;
 
     @Bean
-    CommandLineRunner run() {  // The run() method will be executed after the application starts
+    CommandLineRunner run() {
         return args -> {
+            // Joke database is populated with starting jokes (as you did before)
 
-            // Joke database is populated with starting jokes
-            String[] jokesArray = Jokes.init();
-            for (String joke : jokesArray) {
-                List<Jokes> jokeFound = jokesRepo.findByJokeIgnoreCase(joke);  // JPA lookup
-                if (jokeFound.size() == 0)
-                    jokesRepo.save(new Jokes(null, joke, 0, 0)); //JPA save
-            }
+            // Person database is populated with test data (as you did before)
 
-            // Person database is populated with test data
-            Person[] personArray = Person.init();
-            for (Person person : personArray) {
-                //findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase
-                List<Person> personFound = personService.list(person.getName(), person.getEmail());  // lookup
-                if (personFound.size() == 0) {
-                    personService.save(person);  // save
-
-                    // Each "test person" starts with a "test note"
-                    String text = "Test " + person.getEmail();
-                    Note n = new Note(text, person);  // constructor uses new person as Many-to-One association
-                    noteRepo.save(n);  // JPA Save                  
+            // Initialize the cancer database with "get" methods for each attribute
+            Cancer[] cancersArray = Cancer.init();
+            for (Cancer cancer : cancersArray) {
+                List<Cancer> cancerFound = cancerRepo.findByCancerTypeIgnoreCase(cancer.getCancerType());
+                if (cancerFound.isEmpty()) {
+                    Cancer newCancer = new Cancer();
+                    newCancer.setCancerType(cancer.getCancerType());
+                    newCancer.setNumOfPeopleAffected(cancer.getNumOfPeopleAffected());
+                    newCancer.setDeathRate(cancer.getDeathRate());
+                    newCancer.setAverageRecoveryTime(cancer.getAverageRecoveryTime());
+                    newCancer.setSymptoms(cancer.getSymptoms());
+                    cancerRepo.save(newCancer);
                 }
             }
-
         };
     }
 }
-

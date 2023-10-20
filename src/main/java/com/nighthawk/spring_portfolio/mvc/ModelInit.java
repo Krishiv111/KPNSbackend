@@ -41,7 +41,7 @@ public class ModelInit {
                     Cancer newCancer = new Cancer();
                     newCancer.setCancerType(cancer.getCancerType());
                     newCancer.setNumOfPeopleAffected(cancer.getNumOfPeopleAffected());
-                    newCancer.setDeathRate(cancer.getDeathRate());
+                    newCancer.setDeaths(cancer.getDeaths());
                     newCancer.setAverageRecoveryTime(cancer.getAverageRecoveryTime());
                     newCancer.setSymptoms(cancer.getSymptoms());
                     cancerRepo.save(newCancer);

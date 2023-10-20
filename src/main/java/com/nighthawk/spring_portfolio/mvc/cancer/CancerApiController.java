@@ -79,7 +79,7 @@ public class CancerApiController {
             Cancer existingCancer = optional.get();
             existingCancer.setCancerType(updatedCancer.getCancerType());
             existingCancer.setNumOfPeopleAffected(updatedCancer.getNumOfPeopleAffected());
-            existingCancer.setDeathRate(updatedCancer.getDeathRate());
+            existingCancer.setDeaths(updatedCancer.getDeaths());
             existingCancer.setAverageRecoveryTime(updatedCancer.getAverageRecoveryTime());
             existingCancer.setSymptoms(updatedCancer.getSymptoms());
 

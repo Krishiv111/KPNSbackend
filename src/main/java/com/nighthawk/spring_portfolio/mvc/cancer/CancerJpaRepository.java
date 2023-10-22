@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CancerJpaRepository extends JpaRepository<Cancer, Long> {
-    List<Cancer> findByDeaths(int deaths);
+    List<Cancer> findByDeathRate(double deathRate);
 
     List<Cancer> findByNumOfPeopleAffected(int numOfPeopleAffected);
 

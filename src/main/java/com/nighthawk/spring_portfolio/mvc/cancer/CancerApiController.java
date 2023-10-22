@@ -20,9 +20,9 @@ public class CancerApiController {
         return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/byDeaths/{num}")
-    public ResponseEntity<List<Cancer>> getCancersByDeaths(@PathVariable int num) {
-        List<Cancer> cancers = repository.findByDeaths(num);
+    @GetMapping("/byDeathRate/{rate}")
+    public ResponseEntity<List<Cancer>> getCancersByDeathRate(@PathVariable double rate) {
+        List<Cancer> cancers = repository.findByDeathRate(rate);
         if (cancers.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -79,7 +79,7 @@ public class CancerApiController {
             Cancer existingCancer = optional.get();
             existingCancer.setCancerType(updatedCancer.getCancerType());
             existingCancer.setNumOfPeopleAffected(updatedCancer.getNumOfPeopleAffected());
-            existingCancer.setDeaths(updatedCancer.getDeaths());
+            existingCancer.setDeathRate(updatedCancer.getDeathRate());
             existingCancer.setAverageRecoveryTime(updatedCancer.getAverageRecoveryTime());
             existingCancer.setSymptoms(updatedCancer.getSymptoms());
 

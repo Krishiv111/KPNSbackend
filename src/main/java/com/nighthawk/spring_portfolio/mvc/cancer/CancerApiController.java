@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*") // added this line
 @RestController
 @RequestMapping("/api/cancers")
 public class CancerApiController {

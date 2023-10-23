@@ -60,4 +60,3 @@ public class Cancer {
         this.symptoms = symptoms;
     }
 }
-

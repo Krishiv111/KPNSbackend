@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nighthawk.spring_portfolio.mvc.jokes.JokesJpaRepository;
+import com.nighthawk.spring_portfolio.mvc.memorial.Memorial;
+import com.nighthawk.spring_portfolio.mvc.memorial.MemorialJpaRepository;
 import com.nighthawk.spring_portfolio.mvc.note.NoteJpaRepository;
 import com.nighthawk.spring_portfolio.mvc.person.PersonDetailsService;
 import com.nighthawk.spring_portfolio.mvc.cancer.Cancer;
@@ -25,10 +27,26 @@ public class ModelInit {
     PersonDetailsService personService;
     @Autowired
     CancerJpaRepository cancerRepo;
+    @Autowired
+    MemorialJpaRepository memorialRepo; // Inject the MemorialJpaRepository bean
 
     @Bean
     CommandLineRunner run() {
         return args -> {
+            Memorial[] memorialsArray = Memorial.init();
+            for (Memorial memorial : memorialsArray) {
+                List<Memorial> memorialFound = memorialRepo.findByCancerTypeIgnoreCase(memorial.getCancerType());
+                if (memorialFound.isEmpty()) {
+                    Memorial newMemorial = new Memorial();
+                    newMemorial.setName(memorial.getName());
+                    newMemorial.setAge(memorial.getAge());
+                    newMemorial.setCancerType(memorial.getCancerType());
+                    newMemorial.setFavoriteMemory(memorial.getFavoriteMemory());
+                    newMemorial.setTreatmentType(memorial.getTreatmentType());
+                    memorialRepo.save(newMemorial);
+                }
+            }
+
             // Joke database is populated with starting jokes (as you did before)
 
             // Person database is populated with test data (as you did before)

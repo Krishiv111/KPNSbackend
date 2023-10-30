@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.nighthawk.spring_portfolio.mvc.jokes.JokesJpaRepository;
 import com.nighthawk.spring_portfolio.mvc.note.NoteJpaRepository;
 import com.nighthawk.spring_portfolio.mvc.person.PersonDetailsService;
+import com.nighthawk.spring_portfolio.mvc.quotes.Quotes;
+import com.nighthawk.spring_portfolio.mvc.quotes.QuotesJpaRepository;
 import com.nighthawk.spring_portfolio.mvc.cancer.Cancer;
 import com.nighthawk.spring_portfolio.mvc.cancer.CancerJpaRepository;
+import java.util.Optional;
+
 
 import java.util.List;
 
@@ -45,6 +49,25 @@ public class ModelInit {
                     newCancer.setAverageRecoveryTime(cancer.getAverageRecoveryTime());
                     newCancer.setSymptoms(cancer.getSymptoms());
                     cancerRepo.save(newCancer);
+                }
+            }
+        };
+    }
+
+    @Autowired
+    QuotesJpaRepository quotesRepo; // Assuming you have a QuotesJpaRepository
+
+    @Bean
+    CommandLineRunner init() {
+        return args -> {
+            // Initialize the quotes database with some quotes
+            String[] quotesArray = Quotes.init();
+            for (String quote : quotesArray) {
+                Optional<Quotes> existingQuote = quotesRepo.findByQuote(quote);
+                if (!existingQuote.isPresent()) {
+                    Quotes newQuote = new Quotes();
+                    newQuote.setQuote(quote);
+                    quotesRepo.save(newQuote);
                 }
             }
         };

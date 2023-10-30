@@ -13,6 +13,8 @@ import com.nighthawk.spring_portfolio.mvc.quotes.Quotes;
 import com.nighthawk.spring_portfolio.mvc.quotes.QuotesJpaRepository;
 import com.nighthawk.spring_portfolio.mvc.cancer.Cancer;
 import com.nighthawk.spring_portfolio.mvc.cancer.CancerJpaRepository;
+import com.nighthawk.spring_portfolio.mvc.memorial.Memorial;
+import com.nighthawk.spring_portfolio.mvc.memorial.MemorialJpaRepository;
 import java.util.Optional;
 
 
@@ -29,9 +31,11 @@ public class ModelInit {
     PersonDetailsService personService;
     @Autowired
     CancerJpaRepository cancerRepo;
+    @Autowired
+    MemorialJpaRepository memorialRepo; // Assuming you have a MemorialJpaRepository
 
     @Bean
-    CommandLineRunner run() {
+    CommandLineRunner init() {
         return args -> {
             // Joke database is populated with starting jokes (as you did before)
 
@@ -51,6 +55,21 @@ public class ModelInit {
                     cancerRepo.save(newCancer);
                 }
             }
+
+            // Initialize the memorial database with "get" methods for each attribute
+            Memorial[] memorialsArray = Memorial.init();
+            for (Memorial memorial : memorialsArray) {
+                List<Memorial> memorialFound = memorialRepo.findByCancerTypeIgnoreCase(memorial.getCancerType());
+                if (memorialFound.isEmpty()) {
+                    Memorial newMemorial = new Memorial();
+                    newMemorial.setName(memorial.getName());
+                    newMemorial.setAge(memorial.getAge());
+                    newMemorial.setCancerType(memorial.getCancerType());
+                    newMemorial.setFavoriteMemory(memorial.getFavoriteMemory());
+                    newMemorial.setTreatmentType(memorial.getTreatmentType());
+                    memorialRepo.save(newMemorial);
+                }
+            }
         };
     }
 
@@ -58,7 +77,7 @@ public class ModelInit {
     QuotesJpaRepository quotesRepo; // Assuming you have a QuotesJpaRepository
 
     @Bean
-    CommandLineRunner init() {
+    CommandLineRunner initQuotes() {
         return args -> {
             // Initialize the quotes database with some quotes
             String[] quotesArray = Quotes.init();

@@ -19,7 +19,8 @@ public class QuotesApiController {
     /* GET List of Quotes
      * @GetMapping annotation is used for mapping HTTP GET requests onto specific handler methods.
      */
-    @GetMapping("/")
+    
+     @GetMapping("/")
     public ResponseEntity<List<Quotes>> getQuotes() {
         // ResponseEntity returns List of Quotes provide by JPA findAll()
         return new ResponseEntity<>( repository.findAll(), HttpStatus.OK);

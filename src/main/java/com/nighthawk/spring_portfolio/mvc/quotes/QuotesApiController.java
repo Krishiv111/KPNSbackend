@@ -8,34 +8,38 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController // annotation to simplify the creation of RESTful web services
-@RequestMapping("/api/quotes")  // all requests in file begin with this URI
+@RestController
+@RequestMapping("/api/quotes")
 public class QuotesApiController {
 
-    // Autowired enables Control to connect URI request and POJO Object to easily for Database CRUD operations
     @Autowired
     private QuotesJpaRepository repository;
 
-    /* GET List of Quotes
-     * @GetMapping annotation is used for mapping HTTP GET requests onto specific handler methods.
-     */
-    
-     @GetMapping("/")
+    @GetMapping("/")
     public ResponseEntity<List<Quotes>> getQuotes() {
-        // ResponseEntity returns List of Quotes provide by JPA findAll()
-        return new ResponseEntity<>( repository.findAll(), HttpStatus.OK);
+        // ResponseEntity returns List of Quotes provided by JPA findAll()
+        List<Quotes> quotes = repository.findAll();
+        return new ResponseEntity<>(quotes, HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Quotes> getQuotes(@PathVariable int id) {
+    public ResponseEntity<Quotes> getQuoteById(@PathVariable Long id) {
         Optional<Quotes> optional = repository.findById(id);
         return optional.map(quotes -> new ResponseEntity<>(quotes, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    @GetMapping("/byQuote/{quote}")
-    public ResponseEntity<Quotes> getQuotes(@PathVariable String quote) {
-        Optional<Quotes> optional = repository.findByQuote(quote);
-        return optional.map(quotes -> new ResponseEntity<>(quotes, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
+    @GetMapping("/random")
+    public ResponseEntity<Quotes> getRandomQuote() {
+        List<Quotes> allQuotes = repository.findAll();
+        if (allQuotes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        // Generate a random index to select a random quote
+        int randomIndex = (int) (Math.random() * allQuotes.size());
+        Quotes randomQuote = allQuotes.get(randomIndex);
+
+        return new ResponseEntity<>(randomQuote, HttpStatus.OK);
     }
 }
-

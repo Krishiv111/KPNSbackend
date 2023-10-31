@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/quotes")
-@CrossOrigin(origins = "http://127.0.0.1:4100/") 
+@CrossOrigin(origins = "https://krishiv111.github.io/KPNSTeam/") 
 public class QuotesApiController {
 
     @Autowired

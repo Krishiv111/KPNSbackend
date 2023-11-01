@@ -64,29 +64,27 @@ public class MemorialApiController {
         return new ResponseEntity<>(memorials, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Memorial> addMemorial(@RequestBody Memorial memorial) {
-        repository.save(memorial);
-        return new ResponseEntity<>(memorial, HttpStatus.CREATED);
-    }
+    @PostMapping("/post")
+public ResponseEntity<Object> postMemorial(
+        @RequestParam("name") String name,
+        @RequestParam("age") int age,
+        @RequestParam("cancerType") String cancerType,
+        @RequestParam("favoriteMemory") String favoriteMemory,
+        @RequestParam("treatmentType") String treatmentType) {
+    
+    // Create a new Memorial object with the provided parameters
+    Memorial memorial = new Memorial();
+    memorial.setName(name);
+    memorial.setAge(age);
+    memorial.setCancerType(cancerType);
+    memorial.setFavoriteMemory(favoriteMemory);
+    memorial.setTreatmentType(treatmentType);
+    
+    // Save the Memorial to the repository
+    repository.save(memorial);
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Memorial> updateMemorial(@PathVariable Long id, @RequestBody Memorial updatedMemorial) {
-        Optional<Memorial> optional = repository.findById(id);
-        if (optional.isPresent()) {
-            Memorial existingMemorial = optional.get();
-            existingMemorial.setName(updatedMemorial.getName());
-            existingMemorial.setAge(updatedMemorial.getAge());
-            existingMemorial.setCancerType(updatedMemorial.getCancerType());
-            existingMemorial.setFavoriteMemory(updatedMemorial.getFavoriteMemory());
-            existingMemorial.setTreatmentType(updatedMemorial.getTreatmentType());
-
-            repository.save(existingMemorial);
-            return new ResponseEntity<>(existingMemorial, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
+    return new ResponseEntity<>(memorial, HttpStatus.CREATED);
+}
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteMemorial(@PathVariable Long id) {
         if (repository.existsById(id)) {

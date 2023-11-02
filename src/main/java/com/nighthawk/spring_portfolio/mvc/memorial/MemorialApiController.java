@@ -65,13 +65,13 @@ public class MemorialApiController {
     }
 
     @PostMapping("/post")
-public ResponseEntity<Object> postMemorial(
-        @RequestParam("name") String name,
-        @RequestParam("age") int age,
-        @RequestParam("cancerType") String cancerType,
-        @RequestParam("favoriteMemory") String favoriteMemory,
-        @RequestParam("treatmentType") String treatmentType) {
-    
+    public ResponseEntity<Object> postMemorial(
+            @RequestParam("name") String name,
+            @RequestParam("age") int age,
+            @RequestParam("cancerType") String cancerType,
+            @RequestParam("favoriteMemory") String favoriteMemory,
+            @RequestParam("treatmentType") String treatmentType) {
+        
     // Create a new Memorial object with the provided parameters
     Memorial memorial = new Memorial();
     memorial.setName(name);

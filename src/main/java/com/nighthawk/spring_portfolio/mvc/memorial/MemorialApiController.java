@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 @RestController
 @RequestMapping("/api/memorials")
 public class MemorialApiController {
@@ -84,7 +84,7 @@ public class MemorialApiController {
     repository.save(memorial);
 
     return new ResponseEntity<>(memorial, HttpStatus.CREATED);
-}
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteMemorial(@PathVariable Long id) {
         if (repository.existsById(id)) {

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*") // added this line
 @RestController
 @RequestMapping("/api/quotes")
-@CrossOrigin(origins = "http://127.0.0.1:4100/") 
 public class QuotesApiController {
 
     @Autowired

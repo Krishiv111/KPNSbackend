@@ -45,6 +45,7 @@ public class ModelInit {
             Cancer[] cancersArray = Cancer.init();
             for (Cancer cancer : cancersArray) {
                 List<Cancer> cancerFound = cancerRepo.findByCancerTypeIgnoreCase(cancer.getCancerType());
+               // The purpose of this if statement is to check if a record with the same cancerType (a property of the Cancer class) does not already exist in the database. If no record with the same cancerType is found, it creates a new Cancer object and saves it in the database. This ensures that there are no duplicate records with the same cancerType.
                 if (cancerFound.isEmpty()) {
                     Cancer newCancer = new Cancer();
                     newCancer.setCancerType(cancer.getCancerType());
@@ -60,6 +61,7 @@ public class ModelInit {
             Memorial[] memorialsArray = Memorial.init();
             for (Memorial memorial : memorialsArray) {
                 List<Memorial> memorialFound = memorialRepo.findByCancerTypeIgnoreCase(memorial.getCancerType());
+                // Same thing for memorials
                 if (memorialFound.isEmpty()) {
                     Memorial newMemorial = new Memorial();
                     newMemorial.setName(memorial.getName());
@@ -92,3 +94,4 @@ public class ModelInit {
         };
     }
 }
+

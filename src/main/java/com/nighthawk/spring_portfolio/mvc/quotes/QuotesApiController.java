@@ -30,6 +30,7 @@ public class QuotesApiController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+   // This code defines an endpoint that, when accessed with a GET request to "/random," retrieves a random quote from a collection of quotes stored in the database
     @GetMapping("/random")
     public ResponseEntity<Quotes> getRandomQuote() {
         List<Quotes> allQuotes = repository.findAll();

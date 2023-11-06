@@ -40,7 +40,7 @@ public class CancerApiController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(cancers, HttpStatus.OK);
-    }
+    }    
 
     // Retrieve cancers by the number of people affected
     @GetMapping("/byNumOfPeopleAffected/{num}")

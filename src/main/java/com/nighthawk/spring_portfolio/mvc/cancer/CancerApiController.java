@@ -20,8 +20,8 @@ public class CancerApiController {
     @GetMapping("/")
     public ResponseEntity<List<Cancer>> getCancers() {
         return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
-    }
-
+    }    
+    
     // Retrieve cancers by death rate
     @GetMapping("/byDeathRate/{rate}")
     public ResponseEntity<List<Cancer>> getCancersByDeathRate(@PathVariable double rate) {
